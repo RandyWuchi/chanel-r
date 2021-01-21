@@ -1,16 +1,8 @@
 import * as React from 'react';
-import {
-  Dimensions,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { SharedElement } from 'react-navigation-shared-element';
+import { Dimensions, Image, Pressable, StyleSheet, View } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
-const margin = 16;
+const margin = 6;
 const borderRadius = 5;
 const width = Dimensions.get('window').width / 2 - margin * 2;
 
@@ -31,11 +23,9 @@ const StoryThumbnail = ({ story }) => {
         navigation.navigate('Story', { story });
       }}
     >
-      <SharedElement id={story.id}>
-        <View style={[styles.container, { opacity }]}>
-          <Image source={story.source} style={styles.image} />
-        </View>
-      </SharedElement>
+      <View style={[styles.container, { opacity }]}>
+        <Image source={story.source} style={styles.image} />
+      </View>
     </Pressable>
   );
 };
@@ -45,8 +35,8 @@ export default StoryThumbnail;
 const styles = StyleSheet.create({
   container: {
     width,
-    height: width * 1.77,
-    marginTop: 16,
+    height: width * 1.5,
+    marginTop: 8,
     borderRadius,
   },
   image: {

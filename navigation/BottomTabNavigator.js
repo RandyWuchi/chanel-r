@@ -6,9 +6,14 @@ import * as React from 'react';
 import { useColorScheme } from 'react-native';
 
 import Colors from '../constants/Colors';
-import ExploreScreen from '../screens/ExploreScreen';
+import ExploreScreen, { stories } from '../screens/ExploreScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import StoryScreen from '../screens/StoryScreen';
+
+export const assets = stories
+  .map((story) => [story.avatar, story.source])
+  .flat();
 
 const BottomTab = createBottomTabNavigator();
 
@@ -66,8 +71,17 @@ const TabTwoStack = createStackNavigator();
 
 function TabTwoNavigator() {
   return (
-    <TabTwoStack.Navigator>
+    <TabTwoStack.Navigator
+      screenOptions={{
+        gestureEnabled: true,
+        headerShown: false,
+        cardOverlayEnabled: true,
+        cardStyle: { backgroundColor: 'transparent' },
+      }}
+      mode='modal'
+    >
       <TabTwoStack.Screen name='Explore' component={ExploreScreen} />
+      <TabTwoStack.Screen name='Story' component={StoryScreen} />
     </TabTwoStack.Navigator>
   );
 }
