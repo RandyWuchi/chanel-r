@@ -15,6 +15,7 @@
     "@react-navigation/native": "^5.9.0",
     "@react-navigation/stack": "^5.13.0",
     "expo": "~40.0.0",
+    "expo-av": "~8.7.0",
     "expo-constants": "~9.3.3",
     "expo-image-picker": "~9.2.0",
     "expo-location": "~10.0.0",
@@ -34,9 +35,9 @@
     "react-native-redash": "^16.0.8",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "~2.15.0",
+    "react-native-shared-element": "^0.7.0",
     "react-native-web": "~0.13.12",
-    "react-navigation-shared-element": "^2.3.1",
-    "expo-av": "~8.7.0"
+    "react-navigation-shared-element": "^5.0.0-alpha1"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0"

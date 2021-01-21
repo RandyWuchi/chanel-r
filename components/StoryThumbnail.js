@@ -1,6 +1,7 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, Image, Pressable, StyleSheet, View } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { SharedElement } from 'react-navigation-shared-element';
 
 const margin = 6;
 const borderRadius = 5;
@@ -8,7 +9,7 @@ const width = Dimensions.get('window').width / 2 - margin * 2;
 
 const StoryThumbnail = ({ story }) => {
   const navigation = useNavigation();
-  const [opacity, setOpacity] = React.useState(1);
+  const [opacity, setOpacity] = useState(1);
   useFocusEffect(() => {
     if (navigation.isFocused()) {
       setOpacity(1);
@@ -23,9 +24,11 @@ const StoryThumbnail = ({ story }) => {
         navigation.navigate('Story', { story });
       }}
     >
-      <View style={[styles.container, { opacity }]}>
-        <Image source={story.source} style={styles.image} />
-      </View>
+      <SharedElement id={story.id}>
+        <View style={[styles.container, { opacity }]}>
+          <Image source={story.source} style={styles.image} />
+        </View>
+      </SharedElement>
     </Pressable>
   );
 };
@@ -35,7 +38,7 @@ export default StoryThumbnail;
 const styles = StyleSheet.create({
   container: {
     width,
-    height: width * 1.5,
+    height: width * 1.7,
     marginTop: 8,
     borderRadius,
   },

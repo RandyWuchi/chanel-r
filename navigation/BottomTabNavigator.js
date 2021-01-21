@@ -4,6 +4,7 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { useColorScheme } from 'react-native';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 import Colors from '../constants/Colors';
 import ExploreScreen, { stories } from '../screens/ExploreScreen';
@@ -67,13 +68,21 @@ function TabOneNavigator() {
     </TabOneStack.Navigator>
   );
 }
-const TabTwoStack = createStackNavigator();
+const TabTwoStack = createSharedElementStackNavigator();
 
-function TabTwoNavigator() {
+function TabTwoNavigator({ navigation, route }) {
+  React.useLayoutEffect(() => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    if (routeName === 'Story') {
+      navigation.setOptions({ tabBarVisible: false });
+    } else {
+      navigation.setOptions({ tabBarVisible: true });
+    }
+  }, [navigation, route]);
   return (
     <TabTwoStack.Navigator
       screenOptions={{
-        gestureEnabled: true,
+        gestureEnabled: false,
         headerShown: false,
         cardOverlayEnabled: true,
         cardStyle: { backgroundColor: 'transparent' },
@@ -81,7 +90,14 @@ function TabTwoNavigator() {
       mode='modal'
     >
       <TabTwoStack.Screen name='Explore' component={ExploreScreen} />
-      <TabTwoStack.Screen name='Story' component={StoryScreen} />
+      <TabTwoStack.Screen
+        name='Story'
+        component={StoryScreen}
+        sharedElementsConfig={(route) => {
+          const { id } = route.params.story;
+          return [id];
+        }}
+      />
     </TabTwoStack.Navigator>
   );
 }
