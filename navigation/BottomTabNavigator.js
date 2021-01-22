@@ -70,15 +70,7 @@ function TabOneNavigator() {
 }
 const TabTwoStack = createSharedElementStackNavigator();
 
-function TabTwoNavigator({ navigation, route }) {
-  React.useLayoutEffect(() => {
-    const routeName = getFocusedRouteNameFromRoute(route);
-    if (routeName === 'Story') {
-      navigation.setOptions({ tabBarVisible: false });
-    } else {
-      navigation.setOptions({ tabBarVisible: true });
-    }
-  }, [navigation, route]);
+function TabTwoNavigator() {
   return (
     <TabTwoStack.Navigator
       screenOptions={{

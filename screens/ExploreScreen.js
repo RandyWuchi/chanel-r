@@ -51,7 +51,7 @@ export const stories = [
 
 const ExploreScreen = () => {
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator='false'>
       <View style={styles.container}>
         {stories.map((story) => (
           <StoryThumbnail key={story.id} story={story} />
@@ -68,6 +68,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    margin: 8,
+    margin: 7,
   },
 });

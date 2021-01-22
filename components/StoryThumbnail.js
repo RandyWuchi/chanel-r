@@ -21,14 +21,14 @@ const StoryThumbnail = ({ story }) => {
       style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
       onPress={() => {
         setOpacity(0);
-        navigation.navigate('Story', { story });
+        navigation.push('Story', { story });
       }}
     >
-      <SharedElement id={story.id}>
-        <View style={[styles.container, { opacity }]}>
+      <View style={[styles.container, { opacity }]}>
+        <SharedElement id={story.id} style={{ flex: 1 }}>
           <Image source={story.source} style={styles.image} />
-        </View>
-      </SharedElement>
+        </SharedElement>
+      </View>
     </Pressable>
   );
 };
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     width,
     height: width * 1.7,
-    marginTop: 8,
+    marginTop: 10,
     borderRadius,
   },
   image: {
