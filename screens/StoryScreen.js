@@ -70,13 +70,13 @@ const StoryScreen = ({ route, navigation }) => {
         <SharedElement id={story.id} style={{ flex: 1 }}>
           {!story.video && (
             <Animated.Image
-              source={story.source}
+              source={{ uri: story.source }}
               style={[styles.image, borderStyle]}
             />
           )}
           {story.video && (
             <AnimatedVideo
-              source={story.video}
+              source={{ uri: story.video }}
               rate={1.0}
               resizeMode='cover'
               isMuted={false}
