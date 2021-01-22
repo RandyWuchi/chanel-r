@@ -21,7 +21,7 @@ const StoryThumbnail = ({ story }) => {
       style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
       onPress={() => {
         setOpacity(0);
-        navigation.push('Story', { story });
+        navigation.navigate('Story', { story });
       }}
     >
       <View style={[styles.container, { opacity }]}>

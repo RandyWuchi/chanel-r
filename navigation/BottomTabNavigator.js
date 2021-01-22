@@ -1,14 +1,15 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { useColorScheme } from 'react-native';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 import Colors from '../constants/Colors';
+import DetailsScreen from '../screens/DetailsScreen';
 import ExploreScreen, { stories } from '../screens/ExploreScreen';
 import HomeScreen from '../screens/HomeScreen';
+import LocationScreen from '../screens/LocationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import StoryScreen from '../screens/StoryScreen';
 
@@ -42,13 +43,22 @@ export default function BottomTabNavigator() {
         component={TabTwoNavigator}
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name='location' color={color} size={30} />
+            <Ionicons name='search' color={color} size={30} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name='Location'
+        component={TabThreeNavigator}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name='ios-location' color={color} size={30} />
           ),
         }}
       />
       <BottomTab.Screen
         name='Profile'
-        component={TabThreeNavigator}
+        component={TabFourNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Ionicons name='ios-person' color={color} size={30} />
@@ -93,12 +103,61 @@ function TabTwoNavigator() {
     </TabTwoStack.Navigator>
   );
 }
-const TabThreeStack = createStackNavigator();
+const TabThreeStack = createSharedElementStackNavigator();
 
 function TabThreeNavigator() {
   return (
-    <TabThreeStack.Navigator>
-      <TabThreeStack.Screen name='Profile' component={ProfileScreen} />
+    <TabThreeStack.Navigator screenOptions={{ headerShown: false }}>
+      <TabThreeStack.Screen name='Location' component={LocationScreen} />
+      <TabThreeStack.Screen
+        name='Details'
+        component={DetailsScreen}
+        sharedElementsConfig={(route) => {
+          const { item } = route.params;
+          return [
+            {
+              id: `item.${item.id}.image_url`,
+              animation: 'move',
+              resize: 'clip',
+            },
+            {
+              id: `item.${item.id}.title`,
+              animation: 'fade',
+              resize: 'clip',
+            },
+            {
+              id: `item.${item.id}.description`,
+              animation: 'fade',
+              resize: 'clip',
+            },
+            {
+              id: `item.${item.id}.iconName`,
+              animation: 'move',
+              resize: 'clip',
+            },
+          ];
+        }}
+        options={{
+          headerBackTitle: false,
+          cardStyleInterpolator: ({ current: { progress } }) => {
+            return {
+              cardStyle: {
+                opacity: progress,
+              },
+            };
+          },
+        }}
+      />
     </TabThreeStack.Navigator>
+  );
+}
+
+const TabFourStack = createStackNavigator();
+
+function TabFourNavigator() {
+  return (
+    <TabFourStack.Navigator>
+      <TabFourStack.Screen name='Profile' component={ProfileScreen} />
+    </TabFourStack.Navigator>
   );
 }
